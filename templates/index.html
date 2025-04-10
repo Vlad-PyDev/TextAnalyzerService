@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Анализ текста</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Анализ текста</h1>
+        <form method="POST">
+            <textarea name="text" placeholder="Введите текст..." required></textarea>
+            <button type="submit" class="btn">Анализировать</button>
+        </form>
+
+        {% if analysis %}
+        <div class="results">
+            <h3>Результаты анализа:</h3>
+            <p>Тональность: {{ analysis.polarity }} ({{ 'Позитив' if analysis.polarity > 0 else 'Негатив' }})</p>
+            <p>Субъективность: {{ analysis.subjectivity }}</p>
+        </div>
+        {% endif %}
+
+        {% if wordcloud %}
+        <div class="wordcloud">
+            <img src="data:image/png;base64,{{ wordcloud }}" alt="Облако слов">
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
